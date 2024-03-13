@@ -1,8 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 class User(AbstractUser):
     referral_code = models.CharField(max_length=255, unique=True, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    phone = models.CharField(max_length=100, blank=True)
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)

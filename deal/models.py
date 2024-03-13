@@ -12,9 +12,9 @@ class Deal(models.Model):
         ("COMPLETED", "Completed"),
     ]
 
-    requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE)
-    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
-    deal_maker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="deal_maker")
+    requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE, blank=True, null=True)
+    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, blank=True, null=True)
+    deal_maker = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="PENDING")
 
     def __str__(self):

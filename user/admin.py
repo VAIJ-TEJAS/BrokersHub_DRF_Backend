@@ -6,8 +6,8 @@ from .models import User
 class CustomUserAdmin(UserAdmin):
     model = User
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('referral_code',)}),
+        (None, {'fields': ('referral_code', 'state', 'city', 'phone')}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('referral_code',)}),
+        (None, {'fields': ('referral_code', 'state', 'city', 'phone')}),
     )
