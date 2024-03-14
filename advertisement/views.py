@@ -16,3 +16,11 @@ class AdvertisementViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class MyAdvertisementViewSet(viewsets.ModelViewSet):
+    queryset = Advertisement.objects.all()
+    serializer_class = AdvertisementSerializer
+
+    def get_queryset(self):
+        return Advertisement.objects.filter(user=self.request.user)

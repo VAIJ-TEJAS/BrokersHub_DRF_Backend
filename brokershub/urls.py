@@ -46,12 +46,24 @@ class FileView(APIView):
 router = DefaultRouter()
 router.register("signup", user_views.Signup, basename="signup")
 router.register(
-    "requirements", requirement_views.RequirementViewSet, basename="requirements"
+    "requirements", 
+    requirement_views.RequirementViewSet, 
+    basename="requirements"
+)
+router.register(
+    "my-requirements",
+    requirement_views.MyRequirementViewSet,
+    basename="my-requirements",
 )
 router.register(
     "advertisements",
     advertisement_views.AdvertisementViewSet,
     basename="advertisements",
+)
+router.register(
+    "my-advertisements",
+    advertisement_views.MyAdvertisementViewSet,
+    basename="my-advertisements",
 )
 router.register("deals", deal_views.DealViewSet, basename="deals")
 
@@ -59,5 +71,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(router.urls)),
     path("auth/", user_views.Signin.as_view()),
-    path('.well-known/pki-validation/A1B5AA01AC351DC6FE0DC0DD5E134293.txt/', FileView.as_view(), name='file-view'),
+    path(
+        ".well-known/pki-validation/A1B5AA01AC351DC6FE0DC0DD5E134293.txt/",
+        FileView.as_view(),
+        name="file-view",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

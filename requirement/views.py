@@ -16,3 +16,10 @@ class RequirementViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class MyRequirementViewSet(viewsets.ModelViewSet):
+    queryset = Requirement.objects.all()
+    serializer_class = RequirementSerializer
+
+    def get_queryset(self):
+        return Requirement.objects.filter(user=self.request.user)
