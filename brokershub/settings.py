@@ -148,3 +148,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 AUTH_USER_MODEL = 'user.User'
+
+DEFAULT_FROM_EMAIL = 'workorbit@gmail.com'
+SERVER_EMAIL = 'agent@thebrokershub.in'
+EMAIL_HOST = 'smtp.hostinger.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'agent@thebrokershub.in'
+EMAIL_HOST_PASSWORD = 'Changeoncedone@123'
