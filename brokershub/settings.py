@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8h3m((q%3_0!grfz09%p$=3w6xgpfo$d6=cxzjh+m$@0p7i@8!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -149,10 +149,9 @@ MEDIA_URL = "/media/"
 
 AUTH_USER_MODEL = 'user.User'
 
-DEFAULT_FROM_EMAIL = 'workorbit@gmail.com'
-SERVER_EMAIL = 'agent@thebrokershub.in'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.hostinger.com'
-EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'agent@thebrokershub.in'
 EMAIL_HOST_PASSWORD = 'Changeoncedone@123'
