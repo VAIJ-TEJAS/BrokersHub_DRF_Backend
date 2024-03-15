@@ -7,7 +7,21 @@ from advertisement.models import Advertisement
 from requirement.models import Requirement
 from .models import User
 
-def send_notification_email(instance, model_name):
+from brokershub.celery import app
+
+@app.task
+def send_notification_email(instance_id, model_name):
+    # Determine the model class based on model_name
+    if model_name == "Requirement":
+        model_class = Requirement
+    elif model_name == "Advertisement":
+        model_class = Advertisement
+    else:
+        raise ValueError(f"Unsupported model_name: {model_name}")
+
+    # Fetch the instance from the database
+    instance = model_class.objects.get(id=instance_id)
+    
     subject = f'New {model_name} Posted'
     message = f"A new {model_name.lower()} titled '{instance.title}' has been posted in {instance.city}, {instance.state}. Check it out!"
     from_email = settings.EMAIL_HOST_USER
@@ -18,9 +32,9 @@ def send_notification_email(instance, model_name):
 @receiver(post_save, sender=Advertisement)
 def advertisement_post_save(sender, instance, created, **kwargs):
     if created:
-        send_notification_email(instance, "Advertisement")
+        send_notification_email.delay(instance.id, "Advertisement")
 
 @receiver(post_save, sender=Requirement)
 def requirement_post_save(sender, instance, created, **kwargs):
     if created:
-        send_notification_email(instance, "Requirement")
+        send_notification_email.delay(instance.id, "Requirement")
