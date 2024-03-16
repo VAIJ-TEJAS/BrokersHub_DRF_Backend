@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 
 from advertisement.models import Advertisement
@@ -23,13 +23,27 @@ def send_notification_email(instance_id, model_name):
     instance = model_class.objects.get(id=instance_id)
     
     subject = f'New {model_name} Posted'
-    message = f"A new {model_name.lower()} titled '{instance.title}' has been posted in {instance.city}, {instance.state}. Check it out!"
+    text_content = f"A new {model_name.lower()} titled '{instance.title}' has been posted in {instance.city}, {instance.state}. Check it out!"
+    html_content = f"""\
+    <html>
+      <head></head>
+      <body>
+        <p>Hi there,<br>
+           A new {model_name.lower()} titled "<b>{instance.title}</b>" has been posted in {instance.city}, {instance.state}.<br>
+           Check it out by clicking the button below!
+        </p>
+        <p><a href="YOUR_REDIRECT_LINK_HERE" style="background-color: #0045ff; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block;">View {model_name}</a></p>
+      </body>
+    </html>
+    """
     from_email = settings.EMAIL_HOST_USER
     recipient_list = [user.email for user in User.objects.filter(state=instance.state, city=instance.city, email__isnull=False) if user.email]
-    
-    # Send an individual email to each recipient
+
+    # Send an individual email to each recipient with HTML content
     for recipient in recipient_list:
-        send_mail(subject, message, from_email, [recipient], fail_silently=False)
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [recipient])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
 @receiver(post_save, sender=Advertisement)
 def advertisement_post_save(sender, instance, created, **kwargs):

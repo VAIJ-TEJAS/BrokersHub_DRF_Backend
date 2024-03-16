@@ -12,7 +12,7 @@ class Advertisement(models.Model):
 
     transaction_type = models.CharField(max_length=50)
 
-    price = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    budget = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     downpayment = models.DecimalField(
         max_digits=12, decimal_places=2, blank=True, null=True
     )
