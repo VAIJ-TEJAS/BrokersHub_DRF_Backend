@@ -27,7 +27,9 @@ def send_notification_email(instance_id, model_name):
     from_email = settings.EMAIL_HOST_USER
     recipient_list = [user.email for user in User.objects.filter(state=instance.state, city=instance.city, email__isnull=False) if user.email]
     
-    send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+    # Send an individual email to each recipient
+    for recipient in recipient_list:
+        send_mail(subject, message, from_email, [recipient], fail_silently=False)
 
 @receiver(post_save, sender=Advertisement)
 def advertisement_post_save(sender, instance, created, **kwargs):
