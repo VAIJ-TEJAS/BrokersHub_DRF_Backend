@@ -26,14 +26,13 @@ def send_notification_email(instance_id, model_name):
     subject = f'New {model_name} Posted'
     text_content = f"A new {model_name.lower()} titled '{instance.title}' has been posted in {instance.city}, {instance.state}. Check it out!"
     
-    html_content = email_template(model_name, instance)
-    
     from_email = settings.EMAIL_HOST_USER
-    recipient_list = [user.email for user in User.objects.filter(state=instance.state, city=instance.city, email__isnull=False) if user.email]
+    recipient_list = [user for user in User.objects.filter(state=instance.state, city=instance.city, email__isnull=False) if user.email]
 
     # Send an individual email to each recipient with HTML content
     for recipient in recipient_list:
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [recipient])
+        html_content = email_template(model_name, instance, recipient)
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [recipient.email])
         msg.attach_alternative(html_content, "text/html")
         msg.send()
 

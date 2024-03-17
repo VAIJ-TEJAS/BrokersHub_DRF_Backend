@@ -1,4 +1,7 @@
-def email_template(model_name, instance):
+def email_template(model_name, instance, recipient):
+    
+    print(model_name, instance, recipient)
+
     return """
     <!DOCTYPE HTML
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -16,7 +19,7 @@ def email_template(model_name, instance):
       .u-row {
         width: 600px !important;
       }
-
+      
       .u-row .u-col {
         vertical-align: top;
       }
@@ -170,7 +173,7 @@ def email_template(model_name, instance):
                         <div style="font-size: 14px; line-height: 140%; text-align: justify; word-wrap: break-word;">
                           <p style="line-height: 140%; font-size: 14px;"><span
                               style="font-family: 'Open Sans', sans-serif; font-size: 16px; line-height: 22.4px;"><strong>Dear
-                                Tejas,</strong></span></p>
+                                """+f"{recipient.first_name}"+""",</strong></span></p>
                           <p style="line-height: 140%; font-size: 14px;"> </p>
                           <p style="line-height: 140%; font-size: 14px;"><span
                               style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 19.6px;">We
@@ -187,9 +190,13 @@ def email_template(model_name, instance):
                               are the details of the client's requirement:
                             </span></p>
                           <p style="line-height: 140%; font-size: 14px;"> </p>
-                          <p style="line-height: 140%; font-size: 14px; text-align: center;"><span
-                              style="font-family: 'Open Sans', sans-serif; font-size: 18px; line-height: 22.4px; color: #004585;"><strong>Title
-                                of the requirement</strong></span></p>
+                          <p style="line-height: 140%; font-size: 14px; text-align: center;">
+                            <span style="font-family: 'Open Sans', sans-serif; font-size: 18px; line-height: 22.4px; color: #004585;">
+                              <strong>
+                                """+f"{instance.title}"+"""
+                              </strong>
+                            </span>
+                          </p>
                           <p style="line-height: 140%; font-size: 14px;"> </p>
                           <table
                             style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 140%; width: 100%; border-collapse: collapse;">
@@ -198,13 +205,15 @@ def email_template(model_name, instance):
                                 Type</td>
                               <td style="border: 1px solid #000; padding: 8px;">Location</td>
                               <td style="border: 1px solid #000; padding: 8px; width: 90px; text-align: center;">
+                                Area (sqft)</td>
+                              <td style="border: 1px solid #000; padding: 8px; width: 90px; text-align: center;">
                                 Budget</td>
                             </tr>
                             <tr>
-                              <th style="border: 1px solid #000; padding: 8px; text-align: center;">Buy</th>
-                              <th style="border: 1px solid #000; padding: 8px;">Pune, Maharashtra</th>
-                              <th style="border: 1px solid #000; padding: 8px; text-align: center;">10,00,000
-                              </th>
+                              <th style="border: 1px solid #000; padding: 8px; text-align: center;">"""+f"{instance.transaction_type}"+"""</th>
+                              <th style="border: 1px solid #000; padding: 8px;">"""+f"{instance.city}"+""", """+f"{instance.state}"+"""</th>
+                              <th style="border: 1px solid #000; padding: 8px; text-align: center;">"""+f"{instance.area}"+"""</th>
+                              <th style="border: 1px solid #000; padding: 8px; text-align: center;">"""+f"{instance.budget}"+"""</th>
                             </tr>
                           </table>
                           <p style="line-height: 140%; font-size: 14px;"> </p>
@@ -232,7 +241,7 @@ def email_template(model_name, instance):
                         style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Raleway',sans-serif;"
                         align="left">
                         <div class="v-text-align" align="center">
-                          <a href="https://www.unlayer.com" target="_blank"
+                          <a href="""+f"https://thebrokershub.in/{model_name.lower()}s/{instance.id}/"+""" target="_blank"
                             class="v-button v-size-width v-border-radius"
                             style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #004585; border-radius: 25px;-webkit-border-radius: 25px; -moz-border-radius: 25px; width:30%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
                             <span class="v-padding"
