@@ -6,7 +6,7 @@ from deal.models import Deal
 
 @admin.register(Requirement)
 class RequirementAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'title', 'state', 'city', 'transaction_type', 'budget', 'contact']
+    list_display = ['id', 'user', 'title', 'state', 'city', 'area', 'transaction_type', 'budget', 'contact']
     search_fields = ['title', 'user__username', 'state', 'city']
 
     # Define the DealInline class inside RequirementAdmin to access it easily

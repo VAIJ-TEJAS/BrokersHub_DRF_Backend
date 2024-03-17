@@ -9,7 +9,7 @@ class Advertisement(models.Model):
     city = models.CharField(max_length=100)
     description = models.TextField()
     contact = models.CharField(max_length=100)
-
+    area = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     transaction_type = models.CharField(max_length=50)
 
     budget = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
