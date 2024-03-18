@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "user",
     "advertisement",
     "requirement",
-    "deal"
+    "deal",
+    "otp"
 ]
 
 MIDDLEWARE = [

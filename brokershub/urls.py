@@ -20,6 +20,7 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.http import FileResponse
+from otp.views import GenerateOTP, ResetPassword, VerifyOTP
 from rest_framework.views import APIView
 from rest_framework.routers import DefaultRouter
 from rest_framework.response import Response
@@ -71,6 +72,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(router.urls)),
     path("auth/", user_views.Signin.as_view()),
+    path('generate-otp/', GenerateOTP.as_view(), name='generate-otp'),
+    path('verify-otp/', VerifyOTP.as_view(), name='verify-otp'),
+    path('reset-password/', ResetPassword.as_view(), name='reset-password'),
     path(
         ".well-known/pki-validation/A1B5AA01AC351DC6FE0DC0DD5E134293.txt/",
         FileView.as_view(),

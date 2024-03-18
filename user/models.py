@@ -3,16 +3,17 @@ from django.db import models
 
 
 class User(AbstractUser):
-    referral_code = models.CharField(max_length=255, unique=True, blank=True)
+    my_referral_code = models.CharField(max_length=255, unique=True, blank=True)
+    other_referral_code = models.CharField(max_length=255, blank=True, null=True)
     state = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=100, blank=True)
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
-        if not self.referral_code:
+        if not self.my_referral_code:
             # Generating referral code after the user has an ID
-            self.referral_code = self.generate_referral_code()
+            self.my_referral_code = self.generate_referral_code()
             self.save()
 
     def generate_referral_code(self):

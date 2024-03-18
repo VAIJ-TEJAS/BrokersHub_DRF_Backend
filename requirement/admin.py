@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from django.db import models
 from django.forms import Textarea
-from .models import Requirement
 from deal.models import Deal
+from .models import Requirement
 
 @admin.register(Requirement)
 class RequirementAdmin(admin.ModelAdmin):
@@ -18,9 +19,21 @@ class RequirementAdmin(admin.ModelAdmin):
         formfield_overrides = {
             models.TextField: {'widget': Textarea(attrs={'rows': 1, 'cols': 40})},
         }
-        # Specify readonly fields if you want to prevent modification through the inline, for example:
-        readonly_fields = ('deal_maker',)
-        fields = ('requirement', 'deal_maker', 'status')  # Adjust this list based on your needs
+        
+        
+        readonly_fields = ('deal_maker', 'deal_maker_phone', 'deal_maker_email', 'status')
+
+        def deal_maker_phone(self, instance):
+            # Return the deal_maker's phone number
+            return instance.deal_maker.phone
+        deal_maker_phone.short_description = 'Deal Maker Phone'
+
+        def deal_maker_email(self, instance):
+            # Return the deal_maker's email
+            return format_html('<a href="mailto:{}">{}</a>', instance.deal_maker.email, instance.deal_maker.email)
+        deal_maker_email.short_description = 'Deal Maker Email'
+
+        fields = ('requirement', 'deal_maker', 'deal_maker_phone', 'deal_maker_email', 'status')
 
     # Add the inline to your admin model
     inlines = [DealInline]
