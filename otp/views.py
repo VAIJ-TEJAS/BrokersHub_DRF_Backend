@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from user.models import User
 from user.serializers import UserSerializer
+from utils.email_dynamic_sender import send_email_with_dynamic_sender
 from .models import OTP
 import random
 
@@ -33,10 +34,10 @@ class GenerateOTP(APIView):
         OTP.objects.create(email=email, code=otp_code, expires_at=expires_at)
 
         # Send OTP via email
-        send_mail(
+        send_email_with_dynamic_sender(
             subject="Your OTP",
             message=f"Your OTP is {otp_code}. It will expire in 10 minutes.",
-            from_email="agent@thebrokershub.in",
+            from_email="verification@thebrokershub.in",
             recipient_list=[email],
             fail_silently=False,
         )
