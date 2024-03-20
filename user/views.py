@@ -6,6 +6,10 @@ from rest_framework.authtoken.models import Token
 from .models import User
 from .serializers import UserSerializer
 
+class UserModelViewset(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
 
 class Signup(viewsets.ModelViewSet):
     queryset = User.objects.all()

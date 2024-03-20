@@ -45,6 +45,7 @@ class FileView(APIView):
 
 
 router = DefaultRouter()
+router.register("user", user_views.UserModelViewset, basename="user")
 router.register("signup", user_views.Signup, basename="signup")
 router.register(
     "requirements", 
