@@ -211,7 +211,7 @@ def email_template(model_name, instance, recipient):
                             </tr>
                             <tr>
                               <th style="border: 1px solid #000; padding: 8px; text-align: center;">"""+f"{instance.transaction_type}"+"""</th>
-                              <th style="border: 1px solid #000; padding: 8px;">"""+f"{instance.city}"+""", """+f"{instance.state}"+"""</th>
+                              <th style="border: 1px solid #000; padding: 8px;">"""+f"{instance.city}"+""", """+f"{instance.state}"+f". Near {instance.places}"+"""</th>
                               <th style="border: 1px solid #000; padding: 8px; text-align: center;">"""+f"{instance.area}"+"""</th>
                               <th style="border: 1px solid #000; padding: 8px; text-align: center;">"""+f"{instance.budget}"+"""</th>
                             </tr>
