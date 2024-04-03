@@ -17,6 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
             "other_referral_code",
             "state",
             "city",
+            "send_email",
         ]
         read_only_fields = ["referral_code"]
         extra_kwargs = {"password": {"write_only": True, "required": True}}

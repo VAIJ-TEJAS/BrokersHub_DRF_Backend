@@ -8,6 +8,7 @@ class User(AbstractUser):
     state = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=100, blank=True)
+    send_email = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
