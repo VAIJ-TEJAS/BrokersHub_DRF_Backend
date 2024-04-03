@@ -27,7 +27,12 @@ def send_notification_email(instance_id, model_name):
     text_content = f"A new {model_name.lower()} titled '{instance.title}' has been posted in {instance.city}, {instance.state}. Check it out!"
     
     from_email = settings.EMAIL_HOST_USER
-    recipient_list = [user for user in User.objects.filter(state=instance.state, city=instance.city, email__isnull=False) if user.email]
+    recipient_list = User.objects.filter(
+        state=instance.state,
+        city=instance.city,
+        email__isnull=False,
+        send_email=True
+    ).exclude(id=instance.user.id)
 
     # Send an individual email to each recipient with HTML content
     for recipient in recipient_list:
