@@ -73,6 +73,13 @@ class VerifyOTP(APIView):
             return Response(
                 {"error": "OTP has expired"}, status=status.HTTP_400_BAD_REQUEST
             )
+        
+        # Check if user already exists
+        if User.objects.filter(email=email).exists():
+            return Response(
+                {"error": "A user with this email already exists."},
+                status=status.HTTP_409_CONFLICT
+            )
 
         # Mark OTP as used (to prevent reuse)
         otp_obj.is_used = True
