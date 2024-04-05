@@ -20,7 +20,7 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.http import FileResponse
-from otp.views import GenerateOTP, ResetPassword, VerifyOTP
+from otp.views import GenerateOTPRegister, GenerateOTPResetPassword, ResetPassword, VerifyOTP
 from rest_framework.views import APIView
 from rest_framework.routers import DefaultRouter
 from rest_framework.response import Response
@@ -46,7 +46,6 @@ class FileView(APIView):
 
 router = DefaultRouter()
 router.register("user", user_views.UserModelViewset, basename="user")
-router.register("signup", user_views.Signup, basename="signup")
 router.register(
     "requirements", 
     requirement_views.RequirementViewSet, 
@@ -73,7 +72,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(router.urls)),
     path("auth/", user_views.Signin.as_view()),
-    path('generate-otp/', GenerateOTP.as_view(), name='generate-otp'),
+    path('generate-otp-register/', GenerateOTPRegister.as_view(), name='generate-otp'),
+    path('generate-otp-reset-password/', GenerateOTPResetPassword.as_view(), name='generate-otp'),
     path('verify-otp/', VerifyOTP.as_view(), name='verify-otp'),
     path('reset-password/', ResetPassword.as_view(), name='reset-password'),
     path(
