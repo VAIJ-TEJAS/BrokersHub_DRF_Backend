@@ -18,6 +18,11 @@ To install dependencies:
 
     pip install -r requirements.txt
 
+To setup database:
+
+    python manage.py makemigrations --run-syncdb
+    python manage.py migrate
+
 To run the Django server locally:
 
     python manage.py runserver
