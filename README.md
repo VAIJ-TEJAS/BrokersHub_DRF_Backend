@@ -1,7 +1,7 @@
 # BrokersHub_DRF_Backend
 
 ## Description
-This repository contains the Django backend for the TechManTejas platform, a service for managing email communications and user interactions within various modules like advertising, brokerage, and user requirements.
+This repository contains the Django backend for the BrokersHub_DRF_Backend platform, a service for managing email communications and user interactions within various modules like advertising, brokerage, and user requirements.
 
 ## Installation
 
@@ -36,15 +36,3 @@ Navigate to `http://localhost:8000/` to view the application.
 - `utils` - Utility scripts and helper functions.
 
 Root-level files like `requirements.txt`, `manage.py`, and SSL certificates are used for project configuration and setup.
-
-## Contributing
-
-We welcome contributions! Please read `CONTRIBUTING.md` for details on our code of conduct and the process for submitting pull requests.
-
-## License
-
-This project is licensed under the [LICENSE](LICENSE.md) - see the file for details.
-
-## Contact
-
-For any queries or technical issues, please open an issue on this repository or contact us at [contact@example.com](mailto:contact@example.com).
