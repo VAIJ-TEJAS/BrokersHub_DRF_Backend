@@ -14,6 +14,10 @@ To set up the project environment:
 
 ## Usage
 
+To install dependencies:
+
+    pip install -r requirements.txt
+
 To run the Django server locally:
 
     python manage.py runserver
